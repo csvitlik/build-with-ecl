@@ -24,10 +24,15 @@ build-with-ecl [--help | -?] out-filename
 	  (out in-file))
       (build-program-wrapper in-lisp (list in-o) out))))
 
+(defun usage (rc)
+  (progn
+    (princ ext:*help-message* *standard-output*)
+    (ext:quit rc)))
+
 (defconstant +build-with-ecl-rules+
-'(("--help" 0 (progn (princ ext:*help-message* *standard-output*) (ext:quit 0)))
-  ("-h" 0 (progn (princ ext:*help-message* *standard-output*) (ext:quit 0)))
-  ("-?" 0 (progn (princ ext:*help-message* *standard-output*) (ext:quit 0)))
+'(("--help" 0 (usage 0))
+  ("-h" 0 (usage 0))
+  ("-?" 0 (usage 0))
   ("*DEFAULT*" 1 (main 1) :stop)))
 
 (let ((ext:*lisp-init-file-list* NIL)) ; No initialization files
