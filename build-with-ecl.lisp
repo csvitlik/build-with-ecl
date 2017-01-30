@@ -37,8 +37,6 @@ build-with-ecl [--help | -?] out-filename
 
 (let ((ext:*lisp-init-file-list* NIL)) ; No initialization files
   (handler-case (ext:process-command-args :rules +build-with-ecl-rules+)
-    (error (c)
-       (princ ext:*help-message* *error-output*)
-       (ext:quit 1))))
+    (error (c) (usage 1))))
 
 (ext:quit 0)
