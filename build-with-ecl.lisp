@@ -18,10 +18,10 @@ build-with-ecl [--help | -?] out-filename
 (defun main (args)
   (let ((in-file (first args)))
     (if (equalp in-file "-load")
-	(setf in-file "build-with-ecl"))
+        (setf in-file "build-with-ecl"))
     (let ((in-lisp (concatenate 'string in-file ".lisp"))
-	  (in-o (concatenate 'string in-file ".o"))
-	  (out in-file))
+          (in-o (concatenate 'string in-file ".o"))
+          (out in-file))
       (build-program-wrapper in-lisp (list in-o) out))))
 
 (defun usage (rc)
@@ -30,10 +30,10 @@ build-with-ecl [--help | -?] out-filename
     (ext:quit rc)))
 
 (defconstant +build-with-ecl-rules+
-'(("--help" 0 (usage 0))
-  ("-h" 0 (usage 0))
-  ("-?" 0 (usage 0))
-  ("*DEFAULT*" 1 (main 1) :stop)))
+  '(("--help" 0 (usage 0))
+    ("-h" 0 (usage 0))
+    ("-?" 0 (usage 0))
+    ("*DEFAULT*" 1 (main 1) :stop)))
 
 (let ((ext:*lisp-init-file-list* NIL)) ; No initialization files
   (handler-case (ext:process-command-args :rules +build-with-ecl-rules+)
